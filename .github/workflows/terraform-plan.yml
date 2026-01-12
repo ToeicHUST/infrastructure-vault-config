@@ -39,22 +39,7 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
-
-      - name: Update Pull Request
-        uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
-        with:
-          script: |
-            const output = `#### Terraform Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
-            
-            ${{ steps.fmt.outcome === 'failure' ? '❌ Một số tệp tin chưa được định dạng đúng. Vui lòng chạy `terraform fmt` cục bộ.' : '✅ Định dạng chuẩn!' }}`;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+ 
 
       - name: Terraform Validate
         id: validate
