@@ -40,15 +40,15 @@ resource "vault_generic_secret" "app_config" {
 
   depends_on = [vault_mount.kv]
   # Path: secret/dev/config
-  path       = "${vault_mount.kv.path}/${each.value.name}/config"
-  data_json  = jsonencode(each.value.data)
+  path      = "${vault_mount.kv.path}/${each.value.name}/config"
+  data_json = jsonencode(each.value.data)
 }
 
 # 4. Tạo Policy cho từng môi trường (Chỉ đọc đúng path của nó)
 resource "vault_policy" "app_policy" {
   for_each = local.env_map
 
-  name = "${each.value.name}-read"
+  name   = "${each.value.name}-read"
   policy = <<EOT
 path "${vault_mount.kv.path}/${each.value.name}/config" {
   capabilities = ["read"]
