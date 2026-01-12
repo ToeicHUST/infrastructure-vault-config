@@ -1,0 +1,33 @@
+vault_address = "http://127.0.0.1:8200"
+vault_token   = "hvs.YOUR_ROOT_TOKEN_HERE"
+
+environments = [
+  {
+    name = "dev"
+    data = {
+      env     = "development"
+      debug   = true
+      timeout = 5000
+      db = {
+        host = "dev-db.local"
+        port = 5432
+        user = "dev_user"
+      }
+      api_key = "dev-key-123"
+    }
+  },
+  {
+    name = "prod"
+    data = {
+      env     = "production"
+      debug   = false
+      timeout = 3000
+      db = {
+        host = "prod-db.local"
+        port = 5432
+        user = "prod_user"
+      }
+      api_key = "prod-key-456"
+    }
+  }
+]
